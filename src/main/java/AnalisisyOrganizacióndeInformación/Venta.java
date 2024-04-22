@@ -1,5 +1,8 @@
 package AnalisisyOrganizacióndeInformación;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class Venta {
     private String nombre;
     private double monto;
@@ -21,5 +24,11 @@ public class Venta {
 
     public String getFecha() {
         return fecha;
+    }
+
+    @Override
+    public String toString() {
+        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.FRANCE);
+        return "Nombre: " + nombre + ", Monto: " + format.format(monto) + ", Fecha: " + fecha;
     }
 }
