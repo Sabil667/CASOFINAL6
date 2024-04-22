@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    private static List<Venta> ventas = GeneradorDeVentas.generarVentas(15);
     private static List<String> data = new ArrayList<>();
     private static AddData addData = new AddData(data);
     private static DeleteData deleteData = new DeleteData(data);
@@ -34,7 +35,7 @@ public class Main {
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         panel.add(titulo, gbc);
 
-        String[] opciones = {"Añadir dato", "Eliminar dato", "Listar datos"};
+        String[] opciones = {"Añadir dato", "Eliminar dato", "Listar datos", "Ordenar nombres", "Ordenar ventas por monto ascendente", "Ordenar ventas por monto descendente"};
         JComboBox<String> comboBox = new JComboBox<>(opciones);
         panel.add(comboBox, gbc);
 
@@ -53,6 +54,25 @@ public class Main {
                         break;
                     case "Listar datos":
                         JOptionPane.showMessageDialog(null, "Datos actuales: " + data);
+                        break;
+                    case "Ordenar nombres":
+                        OrdenamientoNombres.main(new String[]{});
+                        break;
+                    case "Ordenar ventas por monto ascendente":
+                        Ordenamiento.ordenarVentasPorMonto(ventas, true);
+                        StringBuilder ventasOrdenadasAsc = new StringBuilder();
+                        for (Venta venta : ventas) {
+                            ventasOrdenadasAsc.append("Nombre: ").append(venta.getNombre()).append(", Monto: ").append(venta.getMonto()).append(", Fecha: ").append(venta.getFecha()).append("\n");
+                        }
+                        JOptionPane.showMessageDialog(null, "Ventas ordenadas por monto (ascendente): \n" + ventasOrdenadasAsc);
+                        break;
+                    case "Ordenar ventas por monto descendente":
+                        Ordenamiento.ordenarVentasPorMonto(ventas, false);
+                        StringBuilder ventasOrdenadasDesc = new StringBuilder();
+                        for (Venta venta : ventas) {
+                            ventasOrdenadasDesc.append("Nombre: ").append(venta.getNombre()).append(", Monto: ").append(venta.getMonto()).append(", Fecha: ").append(venta.getFecha()).append("\n");
+                        }
+                        JOptionPane.showMessageDialog(null, "Ventas ordenadas por monto (descendente): \n" + ventasOrdenadasDesc);
                         break;
                 }
             }
