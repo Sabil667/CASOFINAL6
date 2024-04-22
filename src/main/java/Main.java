@@ -1,5 +1,9 @@
 import GestionDeDatosDinamicos.AddData;
 import GestionDeDatosDinamicos.DeleteData;
+import AnalisisyOrganizacióndeInformación.Venta;
+import AnalisisyOrganizacióndeInformación.Ordenamiento;
+import AnalisisyOrganizacióndeInformación.OrdenamientoNombres;
+import AnalisisyOrganizacióndeInformación.GeneradorDeVentas;
 
 import javax.swing.*;
 import java.awt.*;
