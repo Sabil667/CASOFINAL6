@@ -9,14 +9,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     private static List<Venta> ventas = GeneradorDeVentas.generarVentas(15);
-    private static List<String> data = new ArrayList<>();
-    private static AddData addData = new AddData(data);
-    private static DeleteData deleteData = new DeleteData(data);
+    private static AddData addData = new AddData(ventas);
+    private static DeleteData deleteData = new DeleteData(ventas);
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Menú");
@@ -49,15 +47,23 @@ public class Main {
                 String opcionSeleccionada = (String) comboBox.getSelectedItem();
                 switch (opcionSeleccionada) {
                     case "Añadir dato":
-                        String newData = JOptionPane.showInputDialog("Introduce el dato a añadir:");
-                        addData.execute(newData);
+                        String newData = JOptionPane.showInputDialog("Introduce el nombre de la venta a añadir:");
+                        double newMonto = Double.parseDouble(JOptionPane.showInputDialog("Introduce el monto de la venta a añadir:"));
+                        String newFecha = JOptionPane.showInputDialog("Introduce la fecha de la venta a añadir:");
+                        Venta ventaNueva = new Venta(newData, newMonto, newFecha);
+                        addData.execute(ventaNueva);
                         break;
                     case "Eliminar dato":
-                        String dataToRemove = JOptionPane.showInputDialog("Introduce el dato a eliminar:");
-                        deleteData.execute(dataToRemove);
+                        String dataToRemove = JOptionPane.showInputDialog("Introduce el nombre de la venta a eliminar:");
+                        Venta ventaEliminar = ventas.stream().filter(venta -> venta.getNombre().equals(dataToRemove)).findFirst().orElse(null);
+                        if (ventaEliminar != null) {
+                            deleteData.execute(ventaEliminar);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se encontró la venta con el nombre especificado.");
+                        }
                         break;
                     case "Listar datos":
-                        JOptionPane.showMessageDialog(null, "Datos actuales: " + data);
+                        JOptionPane.showMessageDialog(null, "Datos actuales: " + ventas);
                         break;
                     case "Ordenar nombres":
                         OrdenamientoNombres.main(new String[]{});

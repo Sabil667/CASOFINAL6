@@ -1,15 +1,17 @@
 package GestionDeDatosDinamicos;
 
+import AnalisisyOrganizacióndeInformación.Venta;
+
 import java.util.List;
 
 public class AddData {
-    private List<String> data;
+    private List<Venta> data;
 
-    public AddData(List<String> data) {
+    public AddData(List<Venta> data) {
         this.data = data;
     }
 
-    public void execute(String newData) {
+    public void execute(Venta newData) {
         data.add(newData);
     }
 }
