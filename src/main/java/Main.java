@@ -15,6 +15,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.io.File;
+import javax.swing.JFileChooser;
+
 
 public class Main {
     private static List<Venta> ventas = GeneradorDeVentas.generarVentas(15);
@@ -192,11 +195,26 @@ public class Main {
                         }
                         break;
 
+
+
+
                     case "Indexación y Visualización de Archivos": // Case added
-                        String nombreArchivo = JOptionPane.showInputDialog("Introduce el nombre del archivo a buscar:");
-                        String rutaArchivo = indexador.buscarArchivo(nombreArchivo);
-                        JOptionPane.showMessageDialog(null, "La ruta del archivo es: " + rutaArchivo);
+                        String[] opcionesIndexacion = {"Indexación Recursiva"};
+                        String opcionIndexacion = (String) JOptionPane.showInputDialog(null, "Elige una opción", "Indexación y Visualización de Archivos", JOptionPane.QUESTION_MESSAGE, null, opcionesIndexacion, opcionesIndexacion[0]);
+                        switch (opcionIndexacion) {
+                            case "Indexación Recursiva":
+                                JFileChooser fileChooser = new JFileChooser();
+                                int returnValue = fileChooser.showOpenDialog(null);
+                                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                                    File selectedFile = fileChooser.getSelectedFile();
+                                    indexador.indexarDirectorio(selectedFile.getParent()); // Index the directory of the selected file
+                                    String rutaArchivoIndexacion = indexador.buscarArchivo(selectedFile.getName()); // Changed variable name
+                                    JOptionPane.showMessageDialog(null, "La ruta del archivo es: " + rutaArchivoIndexacion);
+                                }
+                                break;
+                        }
                         break;
+
 
 
 
