@@ -39,7 +39,7 @@ public class Main {
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         panel.add(titulo, gbc);
 
-        String[] opciones = {"Añadir dato", "Eliminar dato", "Listar datos", "Ordenar nombres", "Ordenar ventas por monto ascendente", "Ordenar ventas por monto descendente", "Filtrar ventas por nombre", "Filtrar ventas por monto mínimo", "Filtrar ventas por monto máximo"};
+        String[] opciones = {"Gestionar datos", "Ordenar nombres", "Ordenar ventas por monto ascendente", "Ordenar ventas por monto descendente", "Filtrar ventas por nombre", "Filtrar ventas por monto mínimo", "Filtrar ventas por monto máximo"};
         JComboBox<String> comboBox = new JComboBox<>(opciones);
         panel.add(comboBox, gbc);
 
@@ -49,24 +49,30 @@ public class Main {
                 String opcionSeleccionada = (String) comboBox.getSelectedItem();
                 List<Venta> resultado;
                 switch (opcionSeleccionada) {
-                    case "Añadir dato":
-                        String newData = JOptionPane.showInputDialog("Introduce el nombre de la venta a añadir:");
-                        double newMonto = Double.parseDouble(JOptionPane.showInputDialog("Introduce el monto de la venta a añadir:"));
-                        String newFecha = JOptionPane.showInputDialog("Introduce la fecha de la venta a añadir:");
-                        Venta ventaNueva = new Venta(newData, newMonto, newFecha);
-                        addData.execute(ventaNueva);
-                        break;
-                    case "Eliminar dato":
-                        String dataToRemove = JOptionPane.showInputDialog("Introduce el nombre de la venta a eliminar:");
-                        Venta ventaEliminar = ventas.stream().filter(venta -> venta.getNombre().equals(dataToRemove)).findFirst().orElse(null);
-                        if (ventaEliminar != null) {
-                            deleteData.execute(ventaEliminar);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "No se encontró la venta con el nombre especificado.");
+                    case "Gestionar datos":
+                        String[] opcionesGestion = {"Añadir dato", "Eliminar dato", "Listar datos"};
+                        String opcionGestion = (String) JOptionPane.showInputDialog(null, "Elige una opción", "Gestión de datos", JOptionPane.QUESTION_MESSAGE, null, opcionesGestion, opcionesGestion[0]);
+                        switch (opcionGestion) {
+                            case "Añadir dato":
+                                String newData = JOptionPane.showInputDialog("Introduce el nombre de la venta a añadir:");
+                                double newMonto = Double.parseDouble(JOptionPane.showInputDialog("Introduce el monto de la venta a añadir:"));
+                                String newFecha = JOptionPane.showInputDialog("Introduce la fecha de la venta a añadir:");
+                                Venta ventaNueva = new Venta(newData, newMonto, newFecha);
+                                addData.execute(ventaNueva);
+                                break;
+                            case "Eliminar dato":
+                                String dataToRemove = JOptionPane.showInputDialog("Introduce el nombre de la venta a eliminar:");
+                                Venta ventaEliminar = ventas.stream().filter(venta -> venta.getNombre().equals(dataToRemove)).findFirst().orElse(null);
+                                if (ventaEliminar != null) {
+                                    deleteData.execute(ventaEliminar);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "No se encontró la venta con el nombre especificado.");
+                                }
+                                break;
+                            case "Listar datos":
+                                JOptionPane.showMessageDialog(null, "Datos actuales: " + ventas);
+                                break;
                         }
-                        break;
-                    case "Listar datos":
-                        JOptionPane.showMessageDialog(null, "Datos actuales: " + ventas);
                         break;
                     case "Ordenar nombres":
                         resultado = analisisDeRegistros.ordenarVentasPorNombre(ventas);
