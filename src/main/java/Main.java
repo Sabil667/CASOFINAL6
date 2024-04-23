@@ -75,7 +75,7 @@ public class Main {
                         }
                         break;
                     case "Análisis/Organización de Datos":
-                        String[] opcionesAnalisis = {"Ordenar", "Filtrar ventas por nombre", "Filtrar ventas por monto mínimo", "Filtrar ventas por monto máximo"};
+                        String[] opcionesAnalisis = {"Ordenar", "Filtrar"};
                         String opcionAnalisis = (String) JOptionPane.showInputDialog(null, "Elige una opción", "Análisis/Organización de Datos", JOptionPane.QUESTION_MESSAGE, null, opcionesAnalisis, opcionesAnalisis[0]);
                         switch (opcionAnalisis) {
                             case "Ordenar":
@@ -108,33 +108,39 @@ public class Main {
                                         break;
                                 }
                                 break;
-                            case "Filtrar ventas por nombre":
-                                String letraInicial = JOptionPane.showInputDialog("Introduce la primera letra para filtrar las ventas:");
-                                String letraFinal = JOptionPane.showInputDialog("Introduce la última letra para filtrar las ventas:");
-                                resultado = ventas.stream()
-                                        .filter(venta -> venta.getNombre().substring(0, 1).compareToIgnoreCase(letraInicial) >= 0 && venta.getNombre().substring(0, 1).compareToIgnoreCase(letraFinal) <= 0)
-                                        .collect(Collectors.toList());
-                                StringBuilder ventasFiltradasPorNombre = new StringBuilder();
-                                for (Venta venta : resultado) {
-                                    ventasFiltradasPorNombre.append(venta).append("\n");
+                            case "Filtrar":
+                                String[] opcionesFiltrar = {"Filtrar ventas por nombre", "Filtrar ventas por monto mínimo", "Filtrar ventas por monto máximo"};
+                                String opcionFiltrar = (String) JOptionPane.showInputDialog(null, "Elige una opción", "Filtrar", JOptionPane.QUESTION_MESSAGE, null, opcionesFiltrar, opcionesFiltrar[0]);
+                                switch (opcionFiltrar) {
+                                    case "Filtrar ventas por nombre":
+                                        String letraInicial = JOptionPane.showInputDialog("Introduce la primera letra para filtrar las ventas:");
+                                        String letraFinal = JOptionPane.showInputDialog("Introduce la última letra para filtrar las ventas:");
+                                        resultado = ventas.stream()
+                                                .filter(venta -> venta.getNombre().substring(0, 1).compareToIgnoreCase(letraInicial) >= 0 && venta.getNombre().substring(0, 1).compareToIgnoreCase(letraFinal) <= 0)
+                                                .collect(Collectors.toList());
+                                        StringBuilder ventasFiltradasPorNombre = new StringBuilder();
+                                        for (Venta venta : resultado) {
+                                            ventasFiltradasPorNombre.append(venta).append("\n");
+                                        }
+                                        JOptionPane.showMessageDialog(null, "Ventas filtradas por nombre: \n" + ventasFiltradasPorNombre);
+                                        break;
+                                    case "Filtrar ventas por monto mínimo":
+                                        resultado = analisisDeRegistros.filtrarVentasPorMontoMinimo(ventas, 230.92274973325436);
+                                        StringBuilder ventasFiltradasPorMontoMinimo = new StringBuilder();
+                                        for (Venta venta : resultado) {
+                                            ventasFiltradasPorMontoMinimo.append(venta).append("\n");
+                                        }
+                                        JOptionPane.showMessageDialog(null, "Ventas filtradas por monto mínimo: \n" + ventasFiltradasPorMontoMinimo);
+                                        break;
+                                    case "Filtrar ventas por monto máximo":
+                                        resultado = analisisDeRegistros.filtrarVentasPorMontoMaximo(ventas, 230.92274973325436);
+                                        StringBuilder ventasFiltradasPorMontoMaximo = new StringBuilder();
+                                        for (Venta venta : resultado) {
+                                            ventasFiltradasPorMontoMaximo.append(venta).append("\n");
+                                        }
+                                        JOptionPane.showMessageDialog(null, "Ventas filtradas por monto máximo: \n" + ventasFiltradasPorMontoMaximo);
+                                        break;
                                 }
-                                JOptionPane.showMessageDialog(null, "Ventas filtradas por nombre: \n" + ventasFiltradasPorNombre);
-                                break;
-                            case "Filtrar ventas por monto mínimo":
-                                resultado = analisisDeRegistros.filtrarVentasPorMontoMinimo(ventas, 230.92274973325436);
-                                StringBuilder ventasFiltradasPorMontoMinimo = new StringBuilder();
-                                for (Venta venta : resultado) {
-                                    ventasFiltradasPorMontoMinimo.append(venta).append("\n");
-                                }
-                                JOptionPane.showMessageDialog(null, "Ventas filtradas por monto mínimo: \n" + ventasFiltradasPorMontoMinimo);
-                                break;
-                            case "Filtrar ventas por monto máximo":
-                                resultado = analisisDeRegistros.filtrarVentasPorMontoMaximo(ventas, 230.92274973325436);
-                                StringBuilder ventasFiltradasPorMontoMaximo = new StringBuilder();
-                                for (Venta venta : resultado) {
-                                    ventasFiltradasPorMontoMaximo.append(venta).append("\n");
-                                }
-                                JOptionPane.showMessageDialog(null, "Ventas filtradas por monto máximo: \n" + ventasFiltradasPorMontoMaximo);
                                 break;
                         }
                         break;
