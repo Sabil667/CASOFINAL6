@@ -29,4 +29,7 @@ public class IndexacionRecursiva {
     public String buscarArchivo(String nombreArchivo) {
         return indiceArchivos.get(nombreArchivo);
     }
+    public Map<String, String> getIndiceArchivos() {
+        return indiceArchivos;
+    }
 }
