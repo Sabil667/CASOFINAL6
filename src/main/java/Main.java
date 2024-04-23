@@ -7,6 +7,8 @@ import AnalisisyOrganizacióndeInformación.GeneradorDeVentas;
 import AnalisisyOrganizacióndeInformación.AnalisisDeRegistros;
 import MapasAsociacion.GestionDeRelaciones;
 import MapasAsociacion.RecuperacionEficiente;
+import IndexacionYVisualizacionDeArchivos.IndexacionRecursiva;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,8 +23,12 @@ public class Main {
     private static AnalisisDeRegistros analisisDeRegistros = new AnalisisDeRegistros();
     private static GestionDeRelaciones gestionDeRelaciones = new GestionDeRelaciones();
     private static RecuperacionEficiente recuperacionEficiente = new RecuperacionEficiente(); // Añadido
+    private static IndexacionRecursiva indexador = new IndexacionRecursiva(); // Instance added
+
 
     public static void main(String[] args) {
+        IndexacionRecursiva indexador = new IndexacionRecursiva(); // Añadido
+
         JFrame frame = new JFrame("Menú");
         frame.setSize(500, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +49,7 @@ public class Main {
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         panel.add(titulo, gbc);
 
-        String[] opciones = {"Gestionar datos", "Análisis/Organización de Datos", "Mapa y Asociación de Datos"};
+        String[] opciones = {"Gestionar datos", "Análisis/Organización de Datos", "Mapa y Asociación de Datos", "Indexación y Visualización de Archivos"}; // Option added
         JComboBox<String> comboBox = new JComboBox<>(opciones);
 
         panel.add(comboBox, gbc);
@@ -185,6 +191,14 @@ public class Main {
                                 break;
                         }
                         break;
+
+                    case "Indexación y Visualización de Archivos": // Case added
+                        String nombreArchivo = JOptionPane.showInputDialog("Introduce el nombre del archivo a buscar:");
+                        String rutaArchivo = indexador.buscarArchivo(nombreArchivo);
+                        JOptionPane.showMessageDialog(null, "La ruta del archivo es: " + rutaArchivo);
+                        break;
+
+
 
                 }
 
