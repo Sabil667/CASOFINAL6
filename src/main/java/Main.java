@@ -75,32 +75,38 @@ public class Main {
                         }
                         break;
                     case "Análisis/Organización de Datos":
-                        String[] opcionesAnalisis = {"Ordenar nombres", "Ordenar ventas por monto ascendente", "Ordenar ventas por monto descendente", "Filtrar ventas por nombre", "Filtrar ventas por monto mínimo", "Filtrar ventas por monto máximo"};
+                        String[] opcionesAnalisis = {"Ordenar", "Filtrar ventas por nombre", "Filtrar ventas por monto mínimo", "Filtrar ventas por monto máximo"};
                         String opcionAnalisis = (String) JOptionPane.showInputDialog(null, "Elige una opción", "Análisis/Organización de Datos", JOptionPane.QUESTION_MESSAGE, null, opcionesAnalisis, opcionesAnalisis[0]);
                         switch (opcionAnalisis) {
-                            case "Ordenar nombres":
-                                resultado = analisisDeRegistros.ordenarVentasPorNombre(ventas);
-                                StringBuilder ventasOrdenadasPorNombre = new StringBuilder();
-                                for (Venta venta : resultado) {
-                                    ventasOrdenadasPorNombre.append(venta).append("\n");
+                            case "Ordenar":
+                                String[] opcionesOrdenar = {"Ordenar nombres", "Ordenar ventas por monto ascendente", "Ordenar ventas por monto descendente"};
+                                String opcionOrdenar = (String) JOptionPane.showInputDialog(null, "Elige una opción", "Ordenar", JOptionPane.QUESTION_MESSAGE, null, opcionesOrdenar, opcionesOrdenar[0]);
+                                switch (opcionOrdenar) {
+                                    case "Ordenar nombres":
+                                        resultado = analisisDeRegistros.ordenarVentasPorNombre(ventas);
+                                        StringBuilder ventasOrdenadasPorNombre = new StringBuilder();
+                                        for (Venta venta : resultado) {
+                                            ventasOrdenadasPorNombre.append(venta).append("\n");
+                                        }
+                                        JOptionPane.showMessageDialog(null, "Ventas ordenadas por nombre: \n" + ventasOrdenadasPorNombre);
+                                        break;
+                                    case "Ordenar ventas por monto ascendente":
+                                        resultado = analisisDeRegistros.ordenarVentasPorMonto(ventas, true);
+                                        StringBuilder ventasOrdenadasAsc = new StringBuilder();
+                                        for (Venta venta : resultado) {
+                                            ventasOrdenadasAsc.append(venta).append("\n");
+                                        }
+                                        JOptionPane.showMessageDialog(null, "Ventas ordenadas por monto (ascendente): \n" + ventasOrdenadasAsc);
+                                        break;
+                                    case "Ordenar ventas por monto descendente":
+                                        resultado = analisisDeRegistros.ordenarVentasPorMonto(ventas, false);
+                                        StringBuilder ventasOrdenadasDesc = new StringBuilder();
+                                        for (Venta venta : resultado) {
+                                            ventasOrdenadasDesc.append(venta).append("\n");
+                                        }
+                                        JOptionPane.showMessageDialog(null, "Ventas ordenadas por monto (descendente): \n" + ventasOrdenadasDesc);
+                                        break;
                                 }
-                                JOptionPane.showMessageDialog(null, "Ventas ordenadas por nombre: \n" + ventasOrdenadasPorNombre);
-                                break;
-                            case "Ordenar ventas por monto ascendente":
-                                resultado = analisisDeRegistros.ordenarVentasPorMonto(ventas, true);
-                                StringBuilder ventasOrdenadasAsc = new StringBuilder();
-                                for (Venta venta : resultado) {
-                                    ventasOrdenadasAsc.append(venta).append("\n");
-                                }
-                                JOptionPane.showMessageDialog(null, "Ventas ordenadas por monto (ascendente): \n" + ventasOrdenadasAsc);
-                                break;
-                            case "Ordenar ventas por monto descendente":
-                                resultado = analisisDeRegistros.ordenarVentasPorMonto(ventas, false);
-                                StringBuilder ventasOrdenadasDesc = new StringBuilder();
-                                for (Venta venta : resultado) {
-                                    ventasOrdenadasDesc.append(venta).append("\n");
-                                }
-                                JOptionPane.showMessageDialog(null, "Ventas ordenadas por monto (descendente): \n" + ventasOrdenadasDesc);
                                 break;
                             case "Filtrar ventas por nombre":
                                 String letraInicial = JOptionPane.showInputDialog("Introduce la primera letra para filtrar las ventas:");
