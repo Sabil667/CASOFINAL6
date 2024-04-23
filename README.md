@@ -1,5 +1,8 @@
 Link de mi repositorio: https://github.com/Sabil667/CASOFINAL6.git
 
+En este Caso Final integrador he hecho un programa interactivo que integra todas las funcionalidades mencionadas, con una interfaz de usuario que facilite su uso por parte de analistas, investigadores o cualquier persona interesada en la manipulación de datos complejos.
+La interfaz cuenta con las siguientes opciones: 
+
 1. Gestionar datos: Esta opción te permite añadir, eliminar y listar datos. 
    - Añadir dato: Te permite introducir el nombre, el monto y la fecha de una venta para añadirla a la lista de ventas.
    - Eliminar dato: Te permite introducir el nombre de una venta para eliminarla de la lista de ventas.
