@@ -1,7 +1,5 @@
 package AnalisisyOrganizacióndeInformación;
 
-import AnalisisyOrganizacióndeInformación.Venta;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +37,13 @@ public class AnalisisDeRegistros {
     public List<Venta> filtrarVentasPorNombre(List<Venta> ventas, String nombre) {
         return ventas.stream()
                 .filter(venta -> venta.getNombre().equalsIgnoreCase(nombre))
+                .collect(Collectors.toList());
+    }
+
+    // Ordenar las ventas por nombre
+    public List<Venta> ordenarVentasPorNombre(List<Venta> ventas) {
+        return ventas.stream()
+                .sorted(Comparator.comparing(Venta::getNombre))
                 .collect(Collectors.toList());
     }
 }
