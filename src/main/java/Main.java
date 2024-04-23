@@ -8,6 +8,8 @@ import AnalisisyOrganizacióndeInformación.AnalisisDeRegistros;
 import MapasAsociacion.GestionDeRelaciones;
 import MapasAsociacion.RecuperacionEficiente;
 import IndexacionYVisualizacionDeArchivos.IndexacionRecursiva;
+import java.util.Map;
+import IndexacionYVisualizacionDeArchivos.OrdenacionYListado;
 
 
 import javax.swing.*;
@@ -198,8 +200,8 @@ public class Main {
 
 
 
-                    case "Indexación y Visualización de Archivos": // Case added
-                        String[] opcionesIndexacion = {"Indexación Recursiva"};
+                    case "Indexación y Visualización de Archivos":
+                        String[] opcionesIndexacion = {"Indexación Recursiva", "Ordenación y Listado"}; // Added "Ordenación y Listado"
                         String opcionIndexacion = (String) JOptionPane.showInputDialog(null, "Elige una opción", "Indexación y Visualización de Archivos", JOptionPane.QUESTION_MESSAGE, null, opcionesIndexacion, opcionesIndexacion[0]);
                         switch (opcionIndexacion) {
                             case "Indexación Recursiva":
@@ -211,6 +213,16 @@ public class Main {
                                     String rutaArchivoIndexacion = indexador.buscarArchivo(selectedFile.getName()); // Changed variable name
                                     JOptionPane.showMessageDialog(null, "La ruta del archivo es: " + rutaArchivoIndexacion);
                                 }
+                                break;
+                            case "Ordenación y Listado":
+                                OrdenacionYListado ordenacionYListado = new OrdenacionYListado();
+                                Map<String, String> indiceOrdenado = ordenacionYListado.ordenarArchivosAlfabeticamente(indexador.getIndiceArchivos());
+                                ordenacionYListado.listarArchivos(indiceOrdenado);
+                                StringBuilder archivosOrdenadosYListados = new StringBuilder();
+                                for (Map.Entry<String, String> entrada : indiceOrdenado.entrySet()) {
+                                    archivosOrdenadosYListados.append("Nombre del archivo: ").append(entrada.getKey()).append(", Ruta completa: ").append(entrada.getValue()).append("\n");
+                                }
+                                JOptionPane.showMessageDialog(null, "Archivos ordenados y listados: \n" + archivosOrdenadosYListados);
                                 break;
                         }
                         break;
