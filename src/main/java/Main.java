@@ -86,7 +86,11 @@ public class Main {
                                 }
                                 break;
                             case "Listar datos":
-                                JOptionPane.showMessageDialog(null, "Datos actuales: " + ventas);
+                                StringBuilder datos = new StringBuilder();
+                                for (Venta venta : ventas) {
+                                    datos.append(venta).append("\n");
+                                }
+                                JOptionPane.showMessageDialog(null, "Datos actuales: \n" + datos);
                                 break;
                         }
                         break;
