@@ -6,7 +6,6 @@ import AnalisisyOrganizacióndeInformación.Ordenamiento;
 import AnalisisyOrganizacióndeInformación.GeneradorDeVentas;
 import AnalisisyOrganizacióndeInformación.AnalisisDeRegistros;
 import MapasAsociacion.GestionDeRelaciones;
-import java.util.stream.Collectors;
 import MapasAsociacion.RecuperacionEficiente;
 
 import javax.swing.*;
@@ -21,7 +20,7 @@ public class Main {
     private static DeleteData deleteData = new DeleteData(ventas);
     private static AnalisisDeRegistros analisisDeRegistros = new AnalisisDeRegistros();
     private static GestionDeRelaciones gestionDeRelaciones = new GestionDeRelaciones();
-
+    private static RecuperacionEficiente recuperacionEficiente = new RecuperacionEficiente(); // Añadido
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Menú");
@@ -44,7 +43,8 @@ public class Main {
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         panel.add(titulo, gbc);
 
-        String[] opciones = {"Gestionar datos", "Análisis/Organización de Datos", "Mapa y Asociación de Datos"};        JComboBox<String> comboBox = new JComboBox<>(opciones);
+        String[] opciones = {"Gestionar datos", "Análisis/Organización de Datos", "Mapa y Asociación de Datos"};
+        JComboBox<String> comboBox = new JComboBox<>(opciones);
 
         panel.add(comboBox, gbc);
 
@@ -150,7 +150,7 @@ public class Main {
                         }
                         break;
                     case "Mapa y Asociación de Datos":
-                        String[] opcionesMapa = {"Asociar número a letra", "Asociar número a texto", "Obtener letra asociada", "Obtener texto asociado"};
+                        String[] opcionesMapa = {"Asociar número a letra", "Asociar número a texto", "Obtener letra asociada", "Obtener texto asociado", "Almacenar dato", "Recuperar dato"}; // Añadido
                         String opcionMapa = (String) JOptionPane.showInputDialog(null, "Elige una opción", "Mapa y Asociación de Datos", JOptionPane.QUESTION_MESSAGE, null, opcionesMapa, opcionesMapa[0]);
                         switch (opcionMapa) {
                             case "Asociar número a letra":
@@ -172,6 +172,16 @@ public class Main {
                                 int numeroParaObtenerTexto = Integer.parseInt(JOptionPane.showInputDialog("Introduce el número para obtener el texto asociado:"));
                                 String textoAsociado = gestionDeRelaciones.obtenerTextoAsociado(numeroParaObtenerTexto);
                                 JOptionPane.showMessageDialog(null, "El texto asociado es: " + textoAsociado);
+                                break;
+                            case "Almacenar dato": // Añadido
+                                String clave = JOptionPane.showInputDialog("Introduce la clave:");
+                                String valor = JOptionPane.showInputDialog("Introduce el valor:");
+                                recuperacionEficiente.almacenarDato(clave, valor);
+                                break;
+                            case "Recuperar dato": // Añadido
+                                String claveParaRecuperar = JOptionPane.showInputDialog("Introduce la clave para recuperar el valor:");
+                                String valorRecuperado = recuperacionEficiente.recuperarDato(claveParaRecuperar);
+                                JOptionPane.showMessageDialog(null, "El valor recuperado es: " + valorRecuperado);
                                 break;
                         }
                         break;
