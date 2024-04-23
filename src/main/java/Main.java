@@ -2,7 +2,6 @@ import GestionDeDatosDinamicos.AddData;
 import GestionDeDatosDinamicos.DeleteData;
 import AnalisisyOrganizacióndeInformación.Venta;
 import AnalisisyOrganizacióndeInformación.Ordenamiento;
-import AnalisisyOrganizacióndeInformación.OrdenamientoNombres;
 import AnalisisyOrganizacióndeInformación.GeneradorDeVentas;
 import AnalisisyOrganizacióndeInformación.AnalisisDeRegistros;
 
@@ -69,7 +68,12 @@ public class Main {
                         JOptionPane.showMessageDialog(null, "Datos actuales: " + ventas);
                         break;
                     case "Ordenar nombres":
-                        OrdenamientoNombres.main(new String[]{});
+                        resultado = analisisDeRegistros.ordenarVentasPorNombre(ventas);
+                        StringBuilder ventasOrdenadasPorNombre = new StringBuilder();
+                        for (Venta venta : resultado) {
+                            ventasOrdenadasPorNombre.append(venta).append("\n");
+                        }
+                        JOptionPane.showMessageDialog(null, "Ventas ordenadas por nombre: \n" + ventasOrdenadasPorNombre);
                         break;
                     case "Ordenar ventas por monto ascendente":
                         resultado = analisisDeRegistros.ordenarVentasPorMonto(ventas, true);
