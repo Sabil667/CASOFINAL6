@@ -5,6 +5,9 @@ import AnalisisyOrganizacióndeInformación.Venta;
 import AnalisisyOrganizacióndeInformación.Ordenamiento;
 import AnalisisyOrganizacióndeInformación.GeneradorDeVentas;
 import AnalisisyOrganizacióndeInformación.AnalisisDeRegistros;
+import MapasAsociacion.GestionDeRelaciones;
+import java.util.stream.Collectors;
+import MapasAsociacion.RecuperacionEficiente;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +20,8 @@ public class Main {
     private static AddData addData = new AddData(ventas);
     private static DeleteData deleteData = new DeleteData(ventas);
     private static AnalisisDeRegistros analisisDeRegistros = new AnalisisDeRegistros();
+    private static GestionDeRelaciones gestionDeRelaciones = new GestionDeRelaciones();
+
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Menú");
@@ -39,8 +44,8 @@ public class Main {
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         panel.add(titulo, gbc);
 
-        String[] opciones = {"Gestionar datos", "Análisis/Organización de Datos"};
-        JComboBox<String> comboBox = new JComboBox<>(opciones);
+        String[] opciones = {"Gestionar datos", "Análisis/Organización de Datos", "Mapa y Asociación de Datos"};        JComboBox<String> comboBox = new JComboBox<>(opciones);
+
         panel.add(comboBox, gbc);
 
         comboBox.addActionListener(new ActionListener() {
@@ -144,7 +149,35 @@ public class Main {
                                 break;
                         }
                         break;
+                    case "Mapa y Asociación de Datos":
+                        String[] opcionesMapa = {"Asociar número a letra", "Asociar número a texto", "Obtener letra asociada", "Obtener texto asociado"};
+                        String opcionMapa = (String) JOptionPane.showInputDialog(null, "Elige una opción", "Mapa y Asociación de Datos", JOptionPane.QUESTION_MESSAGE, null, opcionesMapa, opcionesMapa[0]);
+                        switch (opcionMapa) {
+                            case "Asociar número a letra":
+                                int numeroParaLetra = Integer.parseInt(JOptionPane.showInputDialog("Introduce el número a asociar:"));
+                                String letraParaNumero = JOptionPane.showInputDialog("Introduce la letra a asociar:");
+                                gestionDeRelaciones.asociarNumeroALetra(numeroParaLetra, letraParaNumero);
+                                break;
+                            case "Asociar número a texto":
+                                int numeroParaTexto = Integer.parseInt(JOptionPane.showInputDialog("Introduce el número a asociar:"));
+                                String textoParaNumero = JOptionPane.showInputDialog("Introduce el texto a asociar:");
+                                gestionDeRelaciones.asociarNumeroATexto(numeroParaTexto, textoParaNumero);
+                                break;
+                            case "Obtener letra asociada":
+                                int numeroParaObtenerLetra = Integer.parseInt(JOptionPane.showInputDialog("Introduce el número para obtener la letra asociada:"));
+                                String letraAsociada = gestionDeRelaciones.obtenerLetraAsociada(numeroParaObtenerLetra);
+                                JOptionPane.showMessageDialog(null, "La letra asociada es: " + letraAsociada);
+                                break;
+                            case "Obtener texto asociado":
+                                int numeroParaObtenerTexto = Integer.parseInt(JOptionPane.showInputDialog("Introduce el número para obtener el texto asociado:"));
+                                String textoAsociado = gestionDeRelaciones.obtenerTextoAsociado(numeroParaObtenerTexto);
+                                JOptionPane.showMessageDialog(null, "El texto asociado es: " + textoAsociado);
+                                break;
+                        }
+                        break;
+
                 }
+
             }
         });
     }
