@@ -1,3 +1,4 @@
+import java.util.stream.Collectors;
 import GestionDeDatosDinamicos.AddData;
 import GestionDeDatosDinamicos.DeleteData;
 import AnalisisyOrganizacióndeInformación.Venta;
@@ -92,8 +93,11 @@ public class Main {
                         JOptionPane.showMessageDialog(null, "Ventas ordenadas por monto (descendente): \n" + ventasOrdenadasDesc);
                         break;
                     case "Filtrar ventas por nombre":
-                        String nombre = JOptionPane.showInputDialog("Introduce el nombre para filtrar las ventas:");
-                        resultado = analisisDeRegistros.filtrarVentasPorNombre(ventas, nombre);
+                        String letraInicial = JOptionPane.showInputDialog("Introduce la primera letra para filtrar las ventas:");
+                        String letraFinal = JOptionPane.showInputDialog("Introduce la última letra para filtrar las ventas:");
+                        resultado = ventas.stream()
+                                .filter(venta -> venta.getNombre().substring(0, 1).compareToIgnoreCase(letraInicial) >= 0 && venta.getNombre().substring(0, 1).compareToIgnoreCase(letraFinal) <= 0)
+                                .collect(Collectors.toList());
                         StringBuilder ventasFiltradasPorNombre = new StringBuilder();
                         for (Venta venta : resultado) {
                             ventasFiltradasPorNombre.append(venta).append("\n");
